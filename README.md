@@ -103,7 +103,7 @@ console.log(shrinkwrap)
 
 - `public`: boolean
 
-    Whether to use public registry style URLs or not. A public registry URL looks like `x` while a private registry URL looks like `y`. Default is `false` (use private registry URL style).
+    Whether to use public registry style URLs or not. A public registry tarball URL looks like `https://registry.npmjs.org/through/-/through-2.3.8.tgz` while a private registry tarball URL looks like `http://localhost:8080/t/through/_attachments/through-2.3.8.tgz`. Default is `false` (use private registry URL style).
 
 - `transformer`: function
 
