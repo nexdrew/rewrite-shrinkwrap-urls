@@ -1,0 +1,110 @@
+# rewrite-shrinkwrap-urls
+
+> Rewrite URLs in npm-shrinkwrap.json
+
+Sometimes it's necessary to update the "resolved" URLs in an `npm-shrinkwrap.json` file - for instance, when you want to point all packages to a private npm registry like [npm On-Site](https://www.npmjs.com/npm/on-site).
+
+This package provides a tool to do just that. It comes with a convenient CLI, but it can be easily used as a module in some other grander logic as well.
+
+## Install and Usage
+
+### CLI
+
+Install as global (binary) module:
+
+```
+$ npm install -g rewrite-shrinkwrap-urls
+```
+
+View help content:
+
+```
+$ rewrite-shrinkwrap-urls --help
+Usage: rewrite-shrinkwrap-urls [npm-shrinkwrap.json] -r <registry> [opts]
+
+Required:
+  -r, --registry  Base URL of the registry to point URLs at  [string] [required]
+
+Options:
+  -f, --file     Path of file to write modified shrinkwrap to, defaults to input
+                 file                                                   [string]
+  -i, --stdin    Read shrinkwrap file contents from stdin              [boolean]
+  -o, --stdout   Write modified shrinkwrap content to stdout instead of file
+                                                                       [boolean]
+  -p, --public   Use public registry style URLs. Omit this flag when rewriting
+                 to npm On-Site.                                       [boolean]
+  -s, --spaces   Number of spaces per JSON indent of output[number] [default: 2]
+  -h, --help     Show help                                             [boolean]
+  -v, --version  Show version number                                   [boolean]
+```
+
+Rewrite all URLs in the current directory's `npm-shrinkwrap.json`, pointing to the private registry at `https://private-registry`:
+
+```
+$ rewrite-shrinkwrap-urls -r https://private-registry
+```
+
+Read `npm-shrinkwrap-OLD.json` and write the modified content to `npm-shrinkwrap-NEW.json`:
+
+```
+$ rewrite-shrinkwrap-urls npm-shrinkwrap-OLD.json -r https://private-registry -f npm-shrinkwrap-NEW.json
+```
+
+Read shrinkwrap file from stdin and output the modified content to stdout:
+
+```
+$ rewrite-shrinkwrap-urls -r localhost:8080 -i < npm-shrinkwrap.json
+$ cat npm-shrinkwrap.json | rewrite-shrinkwrap-urls -r localhost:8080 -
+```
+
+### Module
+
+Install to local `node_modules` directory and add dependency to `package.json`:
+
+```
+$ npm install --save rewrite-shrinkwrap-urls
+```
+
+Use the module to synchronously modify an object in-place:
+
+```js
+// require the module
+var rewriteShrinkwrapUrls = require('rewrite-shrinkwrap-urls')
+
+// read shrinkwrap object into memory
+var shrinkwrap = JSON.parse(require('fs').readFileSync('npm-shrinkwrap.json', { encoding: 'utf8' }))
+
+// modify the shrinkwrap object synchronously
+rewriteShrinkwrapUrls(shrinkwrap, { newBaseUrl: 'https://private-registry' })
+
+// do something with shrinkwrap
+console.log(shrinkwrap)
+```
+
+## API
+
+### `rewriteShrinkwrapUrls(shrinkwrap, opts)`
+
+#### Arguments
+
+- `shrinkwrap`: object
+
+    Shrinkwrap content as an object in memory.
+
+- `opts`: object
+
+    Options object.
+
+#### Options
+
+- `newBaseUrl`: string
+
+    Base URL of new registry to point package URLs at. Default is `'http://localhost:8080'`.
+
+- `public`: boolean
+
+    Whether to use public registry style URLs or not. A public registry URL looks like `x` while a private registry URL looks like `y`. Default is `false` (use private registry URL style).
+
+- `transformer`: function
+
+    A function that will be called for each modified URL, with the new URL string given as the first argument and the old URL string given as the second argument. The function should return a string to use as the URL in the modified shrinkwrap object.

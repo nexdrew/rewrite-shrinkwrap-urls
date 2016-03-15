@@ -1,0 +1,33 @@
+{
+  "name": "rewrite-shrinkwrap-urls",
+  "version": "0.1.0",
+  "description": "Rewrite URLs in npm-shrinkwrap.json",
+  "main": "index.js",
+  "bin": {
+    "rewrite-shrinkwrap-urls": "cli.js"
+  },
+  "scripts": {
+    "pretest": "standard",
+    "test": "nyc ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nexdrew/rewrite-shrinkwrap-urls.git"
+  },
+  "keywords": [
+    "shrinkwrap",
+    "rewrite",
+    "url",
+    "urls"
+  ],
+  "author": "nexdrew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nexdrew/rewrite-shrinkwrap-urls/issues"
+  },
+  "homepage": "https://github.com/nexdrew/rewrite-shrinkwrap-urls#readme",
+  "dependencies": {
+    "jsonfile": "^2.2.3",
+    "yargs": "^4.3.1"
+  }
+}
