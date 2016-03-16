@@ -8,7 +8,8 @@
   },
   "scripts": {
     "pretest": "standard",
-    "test": "nyc ava"
+    "test": "nyc ava",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,16 @@
   "dependencies": {
     "jsonfile": "^2.2.3",
     "yargs": "^4.3.1"
-  }
+  },
+  "devDependencies": {
+    "ava": "^0.13.0",
+    "coveralls": "^2.11.8",
+    "nyc": "^6.1.1",
+    "standard": "^6.0.8"
+  },
+  "files": [
+    "cli.js",
+    "index.js",
+    "lib/"
+  ]
 }

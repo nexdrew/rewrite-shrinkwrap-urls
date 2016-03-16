@@ -63,8 +63,8 @@ if (argv.stdin) {
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', function (chunk) {
     shrinkwrap += chunk
-  });
-  return process.stdin.on('end', function () {
+  })
+  process.stdin.on('end', function () {
     try {
       shrinkwrap = JSON.parse(shrinkwrap)
     } catch (e) {
@@ -72,30 +72,30 @@ if (argv.stdin) {
       process.exit(1)
     }
     rewrite()
-  });
-}
-
-// look for file
-var infile = argv._[0]
-outfile = argv.file || infile
-try {
-  shrinkwrap = jsonfile.readFileSync(infile)
-} catch (e) {
-  if (infile === defaultFile) {
-    console.error('No %s file found', defaultFile)
-    process.exit(1)
-  }
-  // see if actual file contents were passed
+  })
+} else {
+  // look for file
+  var infile = argv._[0]
+  outfile = argv.file || infile
   try {
-    shrinkwrap = JSON.parse(infile)
-    outfile = argv.file || defaultFile
-  } catch (er) {
-    console.error('Invalid file or JSON content:', infile)
-    process.exit(1)
+    shrinkwrap = jsonfile.readFileSync(infile)
+  } catch (e) {
+    if (infile === defaultFile) {
+      console.error('No %s file found', defaultFile)
+      process.exit(1)
+    }
+    // see if actual file contents were passed
+    try {
+      shrinkwrap = JSON.parse(infile)
+      outfile = argv.file || defaultFile
+    } catch (er) {
+      console.error('Invalid file or JSON content:', infile)
+      process.exit(1)
+    }
   }
-}
 
-rewrite()
+  rewrite()
+}
 
 function rewrite () {
   // rewrite urls (modifies shrinkwrap object)

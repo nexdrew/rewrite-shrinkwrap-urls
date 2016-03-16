@@ -114,6 +114,7 @@ console.log(shrinkwrap)
     - `newUrl`: string
     - `oldUrl`: string
     - `packageName`: string
+    - `version`: string
 
     Returns the desired URL as a string
 
