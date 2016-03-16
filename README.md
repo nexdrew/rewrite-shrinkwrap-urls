@@ -107,4 +107,16 @@ console.log(shrinkwrap)
 
 - `transformer`: function
 
-    A function that will be called for each modified URL, with the new URL string given as the first argument and the old URL string given as the second argument. The function should return a string to use as the URL in the modified shrinkwrap object.
+    A function that will be called for each modified URL, allowing any custom check or modification to be done. The default function simply returns the `newUrl`.
+
+    Arguments:
+
+    - `newUrl`: string
+    - `oldUrl`: string
+    - `packageName`: string
+
+    Returns the desired URL as a string
+
+## License
+
+ISC © Contributors

@@ -7,7 +7,11 @@ module.exports = function rewriteShrinkwrapUrls (shrinkwrap, opts) {
 
   opts = opts || {}
 
-  var transformer = typeof opts.transformer === 'function' ? opts.transformer : function (after, before) { return after }
+  var transformer = typeof opts.transformer === 'function' ?
+    opts.transformer :
+    function (after, before, name) {
+      return after
+    }
   var npmUrl = opts.public ? npmUrls.oldTarballUrlToRegistry2 : npmUrls.oldTarballUrlToNew
   var baseUrl = parseBaseUrl(opts.newBaseUrl || 'http://localhost:8080')
 
@@ -18,7 +22,7 @@ module.exports = function rewriteShrinkwrapUrls (shrinkwrap, opts) {
     if (typeof value === 'object' && 'resolved' in value) {
       before = value.resolved
       after = url.resolve(baseUrl, npmUrl(key, before))
-      value.resolved = transformer(after, before)
+      value.resolved = transformer(after, before, key)
     }
   })
 }
