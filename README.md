@@ -2,6 +2,9 @@
 
 > Rewrite URLs in npm-shrinkwrap.json
 
+[![Build Status](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls.svg?branch=master)](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls)
+[![Coverage Status](https://coveralls.io/repos/github/nexdrew/rewrite-shrinkwrap-urls/badge.svg?branch=master)](https://coveralls.io/github/nexdrew/rewrite-shrinkwrap-urls?branch=master)
+
 Sometimes it's necessary to update the "resolved" URLs in an `npm-shrinkwrap.json` file - for instance, when you want to point all packages to a private npm registry like [npm On-Site](https://www.npmjs.com/npm/on-site).
 
 This package provides a tool to do just that. It comes with a convenient CLI, but it can be easily used as a module in some other grander logic as well.
