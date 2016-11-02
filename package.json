@@ -9,7 +9,8 @@
   "scripts": {
     "pretest": "standard",
     "test": "nyc ava",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,8 @@
     "coveralls": "^2.11.14",
     "del": "^2.2.2",
     "nyc": "^8.3.2",
-    "standard": "^8.5.0"
+    "standard": "^8.5.0",
+    "standard-version": "^3.0.0"
   },
   "files": [
     "cli.js",
