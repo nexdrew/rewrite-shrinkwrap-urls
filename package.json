@@ -28,14 +28,15 @@
   },
   "homepage": "https://github.com/nexdrew/rewrite-shrinkwrap-urls#readme",
   "dependencies": {
-    "jsonfile": "^2.2.3",
-    "yargs": "^4.3.1"
+    "jsonfile": "^2.4.0",
+    "yargs": "^6.3.0"
   },
   "devDependencies": {
-    "ava": "^0.13.0",
-    "coveralls": "^2.11.8",
-    "nyc": "^6.1.1",
-    "standard": "^6.0.8"
+    "ava": "^0.16.0",
+    "coveralls": "^2.11.14",
+    "del": "^2.2.2",
+    "nyc": "^8.3.2",
+    "standard": "^8.5.0"
   },
   "files": [
     "cli.js",

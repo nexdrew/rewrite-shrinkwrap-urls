@@ -31,7 +31,7 @@ var argv = require('yargs')
   })
   .option('p', {
     alias: 'public',
-    describe: 'Use public registry style URLs. Omit this flag when rewriting to npm On-Site.',
+    describe: 'Use public registry style URLs. Omit this flag when rewriting to npm Enterprise.',
     type: 'boolean'
   })
   .option('s', {
