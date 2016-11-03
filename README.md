@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls.svg?branch=master)](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls)
 [![Coverage Status](https://coveralls.io/repos/github/nexdrew/rewrite-shrinkwrap-urls/badge.svg?branch=master)](https://coveralls.io/github/nexdrew/rewrite-shrinkwrap-urls?branch=master)
 
-Sometimes it's necessary to update the "resolved" URLs in an `npm-shrinkwrap.json` file - for instance, when you want to point all packages to a private npm registry like [npm On-Site](https://www.npmjs.com/npm/on-site).
+Sometimes it's necessary to update the "resolved" URLs in an `npm-shrinkwrap.json` file - for instance, when you want to point all packages to a private npm registry like [npm Enterprise](https://www.npmjs.com/enterprise).
 
 This package provides a tool to do just that. It comes with a convenient CLI, but it can be easily used as a module in some other grander logic as well.
 
@@ -35,7 +35,7 @@ Options:
   -o, --stdout   Write modified shrinkwrap content to stdout instead of file
                                                                        [boolean]
   -p, --public   Use public registry style URLs. Omit this flag when rewriting
-                 to npm On-Site.                                       [boolean]
+                 to npm Enterprise.                                    [boolean]
   -s, --spaces   Number of spaces per JSON indent of output[number] [default: 2]
   -h, --help     Show help                                             [boolean]
   -v, --version  Show version number                                   [boolean]
