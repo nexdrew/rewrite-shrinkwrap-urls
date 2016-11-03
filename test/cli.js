@@ -93,7 +93,7 @@ test('cli accepts shrinkwrap content from stdin', async t => {
 })
 
 test('cli fails with invalid json on stdin', async t => {
-  const result = await run(`${cli} -i -r localhost <<< 'invalid'`)
+  const result = await run(`node ${cli} -i -r localhost <<< 'invalid'`)
   t.regex(result.stderr, /Invalid JSON/)
   t.is(result.code, 1)
 })
