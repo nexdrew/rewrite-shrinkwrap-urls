@@ -37,6 +37,8 @@ Options:
   -p, --public   Use public registry style URLs. Omit this flag when rewriting
                  to npm Enterprise.                                    [boolean]
   -s, --spaces   Number of spaces per JSON indent of output[number] [default: 2]
+  -m, --from     Sync the "from" field with the "resolved" field (both will be
+                 the rewritten URL)                                    [boolean]
   -h, --help     Show help                                             [boolean]
   -v, --version  Show version number                                   [boolean]
 ```
@@ -120,6 +122,10 @@ console.log(shrinkwrap)
     - `version`: string
 
     Returns the desired URL as a string
+
+- `syncFrom`: boolean
+
+    Whether to sync the `"from"` field with the `"resolved"` field for each dependency in the shrinkwrap content. Syncing them means that both fields will updated/rewritten to the new URL.
 
 ## License
 

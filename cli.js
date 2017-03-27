@@ -40,6 +40,11 @@ var argv = require('yargs')
     default: 2,
     type: 'number'
   })
+  .option('m', {
+    alias: 'from',
+    describe: 'Sync the "from" field with the "resolved" field (both will be the rewritten URL)',
+    type: 'boolean'
+  })
   .check(function (argv) {
     if (argv._.length === 0) argv._.push(defaultFile)
     else if (argv._[0] === '-') argv.stdin = true
@@ -101,7 +106,8 @@ function rewrite () {
   // rewrite urls (modifies shrinkwrap object)
   rewriteShrinkwrapUrls(shrinkwrap, {
     newBaseUrl: argv.registry,
-    public: argv.public
+    public: argv.public,
+    syncFrom: argv.from
   })
 
   // output to file or stdout
