@@ -97,3 +97,16 @@ test('calls transformer for each url', (t) => {
   t.is(shrinkwrap.dependencies['uglify-js'].dependencies.async.from, 'async@>=0.2.6 <0.3.0')
   t.is(count, 669)
 })
+
+test('rewrites the "from" field with the syncFrom option', (t) => {
+  rewriteShrinkwrapUrls(shrinkwrap, { syncFrom: true })
+  t.is(shrinkwrap.dependencies.abbrev.resolved, 'http://localhost:8080/a/abbrev/_attachments/abbrev-1.0.7.tgz')
+  t.is(shrinkwrap.dependencies.abbrev.version, '1.0.7')
+  t.is(shrinkwrap.dependencies.abbrev.from, 'http://localhost:8080/a/abbrev/_attachments/abbrev-1.0.7.tgz')
+  t.is(shrinkwrap.dependencies['uglify-js'].resolved, 'http://localhost:8080/u/uglify-js/_attachments/uglify-js-2.6.2.tgz')
+  t.is(shrinkwrap.dependencies['uglify-js'].version, '2.6.2')
+  t.is(shrinkwrap.dependencies['uglify-js'].from, 'http://localhost:8080/u/uglify-js/_attachments/uglify-js-2.6.2.tgz')
+  t.is(shrinkwrap.dependencies['uglify-js'].dependencies.async.resolved, 'http://localhost:8080/a/async/_attachments/async-0.2.10.tgz')
+  t.is(shrinkwrap.dependencies['uglify-js'].dependencies.async.version, '0.2.10')
+  t.is(shrinkwrap.dependencies['uglify-js'].dependencies.async.from, 'http://localhost:8080/a/async/_attachments/async-0.2.10.tgz')
+})
