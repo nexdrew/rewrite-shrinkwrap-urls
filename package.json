@@ -1,6 +1,6 @@
 {
   "name": "rewrite-shrinkwrap-urls",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Rewrite URLs in npm-shrinkwrap.json",
   "main": "index.js",
   "bin": {
