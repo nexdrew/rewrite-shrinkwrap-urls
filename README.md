@@ -1,5 +1,7 @@
 # rewrite-shrinkwrap-urls
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nexdrew/rewrite-shrinkwrap-urls.svg)](https://greenkeeper.io/)
+
 > Rewrite URLs in npm-shrinkwrap.json
 
 [![Build Status](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls.svg?branch=master)](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls)
