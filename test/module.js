@@ -1,11 +1,12 @@
 import test from 'ava'
+import { resolve } from 'path'
 import { readFileSync } from 'jsonfile'
 import rewriteShrinkwrapUrls from '../'
 
 let shrinkwrap
 
 test.beforeEach((t) => {
-  shrinkwrap = readFileSync('fixture.json')
+  shrinkwrap = readFileSync(resolve(__dirname, 'fixture.json'))
 })
 
 test('does not blow up on undefined args', (t) => {
