@@ -111,3 +111,22 @@ test('rewrites the "from" field with the syncFrom option', (t) => {
   t.is(shrinkwrap.dependencies['uglify-js'].dependencies.async.version, '0.2.10')
   t.is(shrinkwrap.dependencies['uglify-js'].dependencies.async.from, 'http://localhost:8080/a/async/_attachments/async-0.2.10.tgz')
 })
+
+test('rewrites package-lock.json to private private-registry:9000', (t) => {
+  let count = 0
+  let packageLock = readFileSync(resolve(__dirname, 'fixture-package-lock.json'))
+  rewriteShrinkwrapUrls(packageLock, {
+    newBaseUrl: 'private-registry:9000',
+    transformer: (newUrl, oldUrl, packageName, version) => {
+      count++
+      return newUrl
+    }
+  })
+  t.is(packageLock.dependencies.getpass.resolved, 'http://private-registry:9000/g/getpass/_attachments/getpass-0.1.7.tgz')
+  t.is(packageLock.dependencies.getpass.version, '0.1.7')
+  t.is(packageLock.dependencies.getpass.integrity, 'sha1-Xv+OPmhNVprkyysSgmBOi6YhSfo=')
+  t.is(packageLock.dependencies.getpass.dependencies['assert-plus'].resolved, 'http://private-registry:9000/a/assert-plus/_attachments/assert-plus-1.0.0.tgz')
+  t.is(packageLock.dependencies.getpass.dependencies['assert-plus'].version, '1.0.0')
+  t.is(packageLock.dependencies.getpass.dependencies['assert-plus'].integrity, 'sha1-8S4PPF13sLHN2RRpQuTpbB5N1SU=')
+  t.is(count, 654)
+})

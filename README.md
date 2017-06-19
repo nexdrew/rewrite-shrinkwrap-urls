@@ -1,12 +1,12 @@
 # rewrite-shrinkwrap-urls
 
-> Rewrite URLs in npm-shrinkwrap.json
+> Rewrite URLs in npm-shrinkwrap.json or package-lock.json
 
 [![Build Status](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls.svg?branch=master)](https://travis-ci.org/nexdrew/rewrite-shrinkwrap-urls)
 [![Coverage Status](https://coveralls.io/repos/github/nexdrew/rewrite-shrinkwrap-urls/badge.svg?branch=master)](https://coveralls.io/github/nexdrew/rewrite-shrinkwrap-urls?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/nexdrew/rewrite-shrinkwrap-urls.svg)](https://greenkeeper.io/)
 
-Sometimes it's necessary to update the "resolved" URLs in an `npm-shrinkwrap.json` file - for instance, when you want to point all packages to a private npm registry like [npm Enterprise](https://www.npmjs.com/enterprise).
+Sometimes it's necessary to update the "resolved" URLs in an `npm-shrinkwrap.json` file or a `package-lock.json` file - for instance, when you want to point all packages to a private npm registry like [npm Enterprise](https://www.npmjs.com/enterprise).
 
 This package provides a tool to do just that. It comes with a convenient CLI, but it can be easily used as a module in some other grander logic as well.
 
@@ -16,13 +16,13 @@ This package provides a tool to do just that. It comes with a convenient CLI, bu
 
 Install as global (binary) module:
 
-```
+```console
 $ npm install -g rewrite-shrinkwrap-urls
 ```
 
 View help content:
 
-```
+```console
 $ rewrite-shrinkwrap-urls --help
 Usage: rewrite-shrinkwrap-urls [npm-shrinkwrap.json] -r <registry> [opts]
 
@@ -46,19 +46,25 @@ Options:
 
 Rewrite all URLs in the current directory's `npm-shrinkwrap.json`, pointing to the private registry at `https://private-registry`:
 
-```
+```console
 $ rewrite-shrinkwrap-urls -r https://private-registry
+```
+
+The equivalent command for a `package-lock.json` file would be:
+
+```console
+$ rewrite-shrinkwrap-urls package-lock.json -r https://private-registry
 ```
 
 Read `npm-shrinkwrap-OLD.json` and write the modified content to `npm-shrinkwrap-NEW.json`:
 
-```
+```console
 $ rewrite-shrinkwrap-urls npm-shrinkwrap-OLD.json -r https://private-registry -f npm-shrinkwrap-NEW.json
 ```
 
 Read shrinkwrap file from stdin and output the modified content to stdout:
 
-```
+```console
 $ rewrite-shrinkwrap-urls -r localhost:8080 -i < npm-shrinkwrap.json
 $ cat npm-shrinkwrap.json | rewrite-shrinkwrap-urls -r localhost:8080 -
 ```
@@ -67,7 +73,7 @@ $ cat npm-shrinkwrap.json | rewrite-shrinkwrap-urls -r localhost:8080 -
 
 Install to local `node_modules` directory and add dependency to `package.json`:
 
-```
+```console
 $ npm install --save rewrite-shrinkwrap-urls
 ```
 
@@ -95,7 +101,7 @@ console.log(shrinkwrap)
 
 - `shrinkwrap`: object
 
-    Shrinkwrap content as an object in memory.
+    Content from a shrinkwrap or package-lock file, as an object in memory.
 
 - `opts`: object
 
