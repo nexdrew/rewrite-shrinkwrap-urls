@@ -7,6 +7,8 @@ import { readFileSync } from 'jsonfile'
 const cli = resolve(__dirname, '..', 'cli.js')
 const fixture = resolve(__dirname, 'fixture2.json')
 const outfile = resolve(__dirname, 'deleteme.json')
+const fixturePackageLock = resolve(__dirname, 'fixture-package-lock.json')
+const outfilePackageLock = resolve(__dirname, 'deleteme-package-lock.json')
 
 function run (cmd) {
   let done
@@ -123,4 +125,43 @@ test('cli updates the "from" field with -m option given', async t => {
   t.is(sliced[8], '      "resolved": "https://private-registry/b/builtin-modules/_attachments/builtin-modules-1.1.1.tgz"')
   t.is(sliced[9], '    },')
   t.is(result.code, 0)
+})
+
+test('cli supports an explicit package-lock.json file', async t => {
+  try {
+    const result = await run(`${cli} ${fixturePackageLock} --file ${outfilePackageLock} --registry https://skimdb.npmjs.com/registry --public`)
+    t.regex(result.stdout, /Modified shrinkwrap content successfullly written to:/)
+    t.is(result.code, 0)
+    const output = readFileSync(outfilePackageLock)
+    t.is(output.lockfileVersion, 1)
+    t.deepEqual(output.dependencies['@ava/babel-preset-stage-4'], {
+      version: '1.1.0',
+      resolved: 'https://skimdb.npmjs.com/registry/@ava/babel-preset-stage-4/-/babel-preset-stage-4-1.1.0.tgz',
+      integrity: 'sha512-oWqTnIGXW3k72UFidXzW0ONlO7hnO9x02S/QReJ7NBGeiBH9cUHY9+EfV6C8PXC6YJH++WrliEq03wMSJGNZFg==',
+      dev: true,
+      dependencies: {
+        'md5-hex': {
+          version: '1.3.0',
+          resolved: 'https://skimdb.npmjs.com/registry/md5-hex/-/md5-hex-1.3.0.tgz',
+          integrity: 'sha1-0sSv6YPENwZiF5uMrRRSGRNQRsQ=',
+          dev: true
+        },
+        'package-hash': {
+          version: '1.2.0',
+          resolved: 'https://skimdb.npmjs.com/registry/package-hash/-/package-hash-1.2.0.tgz',
+          integrity: 'sha1-AD5WzVe3NqbtYRTMK4FUJnJ3DkQ=',
+          dev: true
+        }
+      }
+    })
+    t.deepEqual(output.dependencies.jsonfile, {
+      version: '3.0.0',
+      resolved: 'https://skimdb.npmjs.com/registry/jsonfile/-/jsonfile-3.0.0.tgz',
+      integrity: 'sha1-kufHRE5f/V+jLmqa6LhQNN+DR9A='
+    })
+  } catch (_) {
+    // ignore
+  } finally {
+    await del(outfilePackageLock)
+  }
 })
