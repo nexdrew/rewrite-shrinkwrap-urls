@@ -31,8 +31,8 @@ module.exports = function rewriteShrinkwrapUrls (shrinkwrap, opts) {
 }
 
 function parseBaseUrl (baseUrl) {
-  var parsed = baseUrl.indexOf('http') === 0 ? url.parse(baseUrl) : url.parse('http://' + baseUrl)
-  var proto = parsed.protocol || 'http:'
+  const parsed = baseUrl.indexOf('http') === 0 ? url.parse(baseUrl) : url.parse('http://' + baseUrl)
+  let proto = parsed.protocol || 'http:'
   if (proto.lastIndexOf('//') === -1) proto += '//'
   baseUrl = proto + parsed.host + (parsed.pathname || '')
   return baseUrl.charAt(baseUrl.length - 1) === '/' ? baseUrl.slice(0, -1) : baseUrl
