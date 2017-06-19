@@ -82,7 +82,7 @@ test('rewrites to public https://skimdb.npmjs.com/registry', (t) => {
 test('calls transformer for each url', (t) => {
   let count = 0
   rewriteShrinkwrapUrls(shrinkwrap, {
-    transformer: function (newUrl, oldUrl, packageName, version) {
+    transformer: (newUrl, oldUrl, packageName, version) => {
       count++
       return 'https://something/' + packageName + '-' + version + '.tgz'
     }

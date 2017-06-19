@@ -1,22 +1,24 @@
-var npmUrls = require('./lib/npm-urls')
-var url = require('url')
-var visit = require('./lib/visit')
+'use strict'
+
+const npmUrls = require('./lib/npm-urls')
+const url = require('url')
+const visit = require('./lib/visit')
 
 module.exports = function rewriteShrinkwrapUrls (shrinkwrap, opts) {
   if (!shrinkwrap) return
 
   opts = opts || {}
 
-  var transformer = typeof opts.transformer === 'function'
+  const transformer = typeof opts.transformer === 'function'
     ? opts.transformer
-    : function (after, before, name, version) { return after }
-  var npmUrl = opts.public ? npmUrls.oldTarballUrlToRegistry2 : npmUrls.oldTarballUrlToNew
-  var baseUrl = parseBaseUrl(opts.newBaseUrl || 'http://localhost:8080')
+    : (after, before, name, version) => after
+  const npmUrl = opts.public ? npmUrls.oldTarballUrlToRegistry2 : npmUrls.oldTarballUrlToNew
+  const baseUrl = parseBaseUrl(opts.newBaseUrl || 'http://localhost:8080')
 
-  var before
-  var after
+  let before
+  let after
 
-  visit(shrinkwrap, function (value, key, parent) {
+  visit(shrinkwrap, (value, key, parent) => {
     if (typeof value === 'object' && 'resolved' in value) {
       before = value.resolved
       after = baseUrl + npmUrl(key, before)
