@@ -1,11 +1,12 @@
 #!/usr/bin/env node
+'use strict'
 
-var jsonfile = require('jsonfile')
-var rewriteShrinkwrapUrls = require('./')
+const jsonfile = require('jsonfile')
+const rewriteShrinkwrapUrls = require('./')
 
-var defaultFile = 'npm-shrinkwrap.json'
+const defaultFile = 'npm-shrinkwrap.json'
 
-var argv = require('yargs')
+const argv = require('yargs')
   .usage('Usage: $0 [npm-shrinkwrap.json] -r <registry> [opts]')
   .option('r', {
     alias: 'registry',
@@ -45,7 +46,7 @@ var argv = require('yargs')
     describe: 'Sync the "from" field with the "resolved" field (both will be the rewritten URL)',
     type: 'boolean'
   })
-  .check(function (argv) {
+  .check(argv => {
     if (argv._.length === 0) argv._.push(defaultFile)
     else if (argv._[0] === '-') argv.stdin = true
 
@@ -58,18 +59,18 @@ var argv = require('yargs')
   .version().alias('v', 'version')
   .argv
 
-var shrinkwrap
-var outfile = argv.file || defaultFile
+let shrinkwrap
+let outfile = argv.file || defaultFile
 
 if (argv.stdin) {
   // read from stdin
   shrinkwrap = ''
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
-  process.stdin.on('data', function (chunk) {
+  process.stdin.on('data', chunk => {
     shrinkwrap += chunk
   })
-  process.stdin.on('end', function () {
+  process.stdin.on('end', () => {
     try {
       shrinkwrap = JSON.parse(shrinkwrap)
     } catch (e) {
@@ -80,7 +81,7 @@ if (argv.stdin) {
   })
 } else {
   // look for file
-  var infile = argv._[0]
+  const infile = argv._[0]
   outfile = argv.file || infile
   try {
     shrinkwrap = jsonfile.readFileSync(infile)
