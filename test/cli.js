@@ -23,7 +23,7 @@ function run (cmd) {
 
 test('cli fails when -r, --registry option not given', async t => {
   const result = await run(`${cli}`)
-  t.regex(result.stderr, /Missing required argument: r/)
+  t.regex(result.stderr || result.stdout, /Missing required argument: r or registry/)
   t.is(result.code, 1)
 })
 
