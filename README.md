@@ -24,24 +24,45 @@ View help content:
 
 ```console
 $ rewrite-shrinkwrap-urls --help
-Usage: rewrite-shrinkwrap-urls [npm-shrinkwrap.json] -r <registry> [opts]
+Usage: rewrite-shrinkwrap-urls [npm-shrinkwrap.json] -r <registry> [options]
+
+Arguments:
+  [npm-shrinkwrap.json]  The input shrinkwrap file containing urls to
+                         rewrite. You can omit this if --stdin is used.
+                         [file] [default: npm-shrinkwrap.json]
 
 Required:
-  -r, --registry  Base URL of the registry to point URLs at  [string] [required]
+  -r, --registry <registry>  Base URL of the registry to point URLs at
+                             [required] [string]
 
 Options:
-  -f, --file     Path of file to write modified shrinkwrap to, defaults to input
-                 file                                                   [string]
-  -i, --stdin    Read shrinkwrap file contents from stdin              [boolean]
-  -o, --stdout   Write modified shrinkwrap content to stdout instead of file
-                                                                       [boolean]
-  -p, --public   Use public registry style URLs. Omit this flag when rewriting
-                 to npm Enterprise.                                    [boolean]
-  -s, --spaces   Number of spaces per JSON indent of output[number] [default: 2]
-  -m, --from     Sync the "from" field with the "resolved" field (both will be
-                 the rewritten URL)                                    [boolean]
-  -h, --help     Show help                                             [boolean]
-  -v, --version  Show version number                                   [boolean]
+  -f, --file <output>  Path of file to write modified shrinkwrap to,
+                       defaults to input file
+                       [file]
+
+  -i, --stdin          Read shrinkwrap file contents from stdin
+                       [boolean]
+
+  -o, --stdout         Write modified shrinkwrap content to stdout instead
+                       of file
+                       [boolean]
+
+  -p, --public         Use public registry style URLs. Omit this flag when
+                       rewriting to npm Enterprise.
+                       [boolean]
+
+  -s, --spaces <num>   Number of spaces per JSON indent of output
+                       [number] [default: 2]
+
+  -m, --from           Sync the "from" field with the "resolved" field
+                       (both will be the rewritten URL)
+                       [boolean]
+
+  -h, --help           Show help
+                       [commands: help] [boolean]
+
+  -v, --version        Show version number
+                       [commands: version] [boolean]
 ```
 
 Rewrite all URLs in the current directory's `npm-shrinkwrap.json`, pointing to the private registry at `https://private-registry`:

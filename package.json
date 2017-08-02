@@ -32,7 +32,7 @@
   "homepage": "https://github.com/nexdrew/rewrite-shrinkwrap-urls#readme",
   "dependencies": {
     "jsonfile": "^3.0.0",
-    "yargs": "^8.0.1"
+    "sywac": "^1.0.1"
   },
   "devDependencies": {
     "ava": "^0.21.0",
