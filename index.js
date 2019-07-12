@@ -1,7 +1,7 @@
 'use strict'
 
 const npmUrls = require('./lib/npm-urls')
-const url = require('url')
+const { URL } = require('url')
 const visit = require('./lib/visit')
 
 module.exports = function rewriteShrinkwrapUrls (shrinkwrap, opts) {
@@ -31,7 +31,7 @@ module.exports = function rewriteShrinkwrapUrls (shrinkwrap, opts) {
 }
 
 function parseBaseUrl (baseUrl) {
-  const parsed = baseUrl.indexOf('http') === 0 ? url.parse(baseUrl) : url.parse('http://' + baseUrl)
+  const parsed = baseUrl.indexOf('http') === 0 ? new URL(baseUrl) : new URL('http://' + baseUrl)
   let proto = parsed.protocol || 'http:'
   if (proto.lastIndexOf('//') === -1) proto += '//'
   baseUrl = proto + parsed.host + (parsed.pathname || '')
