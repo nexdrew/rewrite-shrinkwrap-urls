@@ -114,7 +114,7 @@ test('rewrites the "from" field with the syncFrom option', (t) => {
 
 test('rewrites package-lock.json to private private-registry:9000', (t) => {
   let count = 0
-  let packageLock = readFileSync(resolve(__dirname, 'fixture-package-lock.json'))
+  const packageLock = readFileSync(resolve(__dirname, 'fixture-package-lock.json'))
   rewriteShrinkwrapUrls(packageLock, {
     newBaseUrl: 'private-registry:9000',
     transformer: (newUrl, oldUrl, packageName, version) => {
