@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/nexdrew/rewrite-shrinkwrap-urls#readme",
   "dependencies": {
-    "jsonfile": "^5.0.0",
+    "jsonfile": "^6.0.0",
     "sywac": "^1.0.1"
   },
   "devDependencies": {
