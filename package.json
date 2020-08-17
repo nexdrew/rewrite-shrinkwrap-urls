@@ -40,7 +40,7 @@
     "del": "^5.0.0",
     "nyc": "^14.0.0",
     "standard": "^13.0.1",
-    "standard-version": "^6.0.1"
+    "standard-version": "^9.0.0"
   },
   "files": [
     "cli.js",
